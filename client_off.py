@@ -2,6 +2,9 @@
 
 import socket as sock
 
+sock.setdefaulttimeout(2)
+s = sock.socket()
+
 # Common error messages specific to sockets.
 err_msg_timeout='Connection Error:\tConnection timeout error occurred with server at \'{0}\' listening on port {1:d}.'
 
