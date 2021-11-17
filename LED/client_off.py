@@ -8,10 +8,28 @@ s = sock.socket()
 # Common error messages specific to sockets.
 err_msg_timeout='Connection Error:\tConnection timeout error occurred with server at \'{0}\' listening on port {1:d}.'
 
-# Connect to server at 'localhost' listening on port 9001.
-HOST='127.0.0.1'
-PORT=9001
+
+# Parse the command line for address info.
+import sys
+argv = sys.argv
+
+if '-h' in argv:
+    HOST = argv[argv.index('-h')+1]
+elif '--host' in argv:
+    HOST = argv[argv.index('--host')+1]
+else:
+    HOST = '127.0.0.1'
+
+if '-p' in argv:
+    PORT = int(argv[argv.index('-p')+1])
+elif '--port' in argv:
+    PORT = int(argv[argv.index('--port')+1])
+else:
+    PORT = 9001
+
 ADDR=(HOST, PORT)
+
+# Connect to server at HOST listening on port PORT.
 try:
     s.connect(ADDR)
 except sock.timeout:
