@@ -1,12 +1,13 @@
 import tkinter as tk
+import sys
 from subprocess import run, PIPE
 
 def led_on():
-    cp = run(['python3', 'client_on.py'], stdout=PIPE, encoding='utf-8')
+    cp = run(['python3', 'client_on.py'] + sys.argv[1:], stdout=PIPE, encoding='utf-8')
     print(cp.stdout)
 
 def led_off():
-    cp = run(['python3', 'client_off.py'], stdout=PIPE, encoding='utf-8')
+    cp = run(['python3', 'client_off.py'] + sys.argv[1:], stdout=PIPE, encoding='utf-8')
     print(cp.stdout)
 
 class App(tk.Frame):
