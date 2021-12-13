@@ -54,7 +54,8 @@ while True:
         exit(1)
 
     # Simply notify the client that the command was received.
-    sent=s.send(b'\x01')
+    # sent=s.send(b'\x01')
+    sent = 0
     print(f'Server sent {sent:d} bytes of data to \'{addr[0]}:{addr[1]:d}\'.')
 
     # Check control code.
@@ -82,7 +83,7 @@ while True:
         comp_proc = run(['python3', '2_on.py'], stdout=subprocess.PIPE)
 
     print('Command \'{0}\' returned a value of {1:d}.'.format(comp_proc.args[0] + ' ' + comp_proc.args[1], comp_proc.returncode))
-    sent=s.send(comp_proc.stdout)
+    # sent=s.send(comp_proc.stdout)
     print(f'Server sent {sent:d} bytes of data to \'{addr[0]}:{addr[1]:d}\'.')
 
     # Close and disconnect client socket.
