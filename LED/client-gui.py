@@ -2,16 +2,20 @@ import tkinter as tk
 import sys
 from subprocess import run, PIPE
 
+
 def led_on():
     cp = run(['python3', 'client_on.py'] + sys.argv[1:], stdout=PIPE, encoding='utf-8')
     print(cp.stdout)
+
 
 def led_off():
     cp = run(['python3', 'client_off.py'] + sys.argv[1:], stdout=PIPE, encoding='utf-8')
     print(cp.stdout)
 
+
 class App(tk.Frame):
     """Main application"""
+
     def __init__(self, master):
         super().__init__(master)
         self.master = master
@@ -22,6 +26,7 @@ class App(tk.Frame):
         self.off_btn = tk.Button(self, text='LED Off.', command=led_off)
         self.off_btn.pack(side='bottom')
 
-root=tk.Tk()
-app=App(root)
+
+root = tk.Tk()
+app = App(root)
 app.mainloop()
