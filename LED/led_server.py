@@ -54,19 +54,20 @@ while True:
         exit(1)
 
     # Simply notify the client that the command was received.
-    sent=s.send(b'\x01')
+    # sent=s.send(b'\x01')
+    sent=0
     print(f'Server sent {sent:d} bytes of data to \'{addr[0]}:{addr[1]:d}\'.')
 
     # Check control code.
-    cmd = msg_r[0]
-    if cmd == 2:
+    code = msg_r[0]
+    if code == 2:
         # Check LED command not implemented yet.
         sent=s.send(b'Check LED command not implemented yet.')
         print(f'Server sent {sent:d} bytes of data to \'{addr[0]}:{addr[1]:d}\'.')
         s.close()
         ss.close()
         exit(0)
-    elif cmd != 1 and cmd != 0:
+    elif code != 1 and code != 0:
         # Invalid control code.
         sent=s.send(b'Invalid control code.')
         print(f'Server sent {sent:d} bytes of data to \'{addr[0]}:{addr[1]:d}\'.')
@@ -76,13 +77,15 @@ while True:
 
     # Now execute the command and send the results to the client.
     run = subprocess.run
-    if cmd == 0:
-        comp_proc = run(['python3', '2_off.py'], stdout=subprocess.PIPE)
+    if code == 0:
+        comp_proc = run(['python3', '2_off.py'], stdout=subprocess.PIPE, encoding='utf-8')
     else:
-        comp_proc = run(['python3', '2_on.py'], stdout=subprocess.PIPE)
+        comp_proc = run(['python3', '2_on.py'], stdout=subprocess.PIPE, encoding='utf-8')
 
-    print('Command \'{0}\' returned a value of {1:d}.'.format(comp_proc.args[0] + ' ' + comp_proc.args[1], comp_proc.returncode))
-    sent=s.send(comp_proc.stdout)
+    print('Command \'{0}\' returned a value of {1:d} and printed the message:\n\t\'{2}\'.'.format(comp_proc.args[0] + ' ' + comp_proc.args[1], \
+                                                                                                  comp_proc.returncode, \
+                                                                                                  comp_proc.stdout))
+    # sent=s.send(comp_proc.stdout)
     print(f'Server sent {sent:d} bytes of data to \'{addr[0]}:{addr[1]:d}\'.')
 
     # Close and disconnect client socket.
