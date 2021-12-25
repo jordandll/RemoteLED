@@ -87,6 +87,14 @@ while True:
         print('... was just stopped.')
         if code != 0:
             p = Popen(['python3', tree_cmd[code - 1]], stdout=subprocess.PIPE, encoding='utf-8')
+            sleep(0.2)
+            res = p.poll()
+            if res is None:
+                print(f'\'{tree_cmd[code - 1]}\' is still running.')
+            elif res != 0:
+                print(f'\'{tree_cmd[code - 1]}\' exited with errors.')
+            else:
+                print(f'\'{tree_cmd[code - 1]}\' exited with the message, \'{p.stdout.readline()}\'.')
     elif code != 0:
         """The process is not currently active (running)."""
         p = Popen(['python3', tree_cmd[code - 1]], stdout=subprocess.PIPE, encoding='utf-8')
