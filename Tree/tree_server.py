@@ -3,6 +3,7 @@
 import socket as sock
 import subprocess
 from signal import SIGINT
+from time import sleep
 
 """Herein is a list of python scripts (commands), each with an index that is equal to it's control code. """
 tree_cmd = ['all_on.py', 'alt.py', 'ants.py']
@@ -81,11 +82,22 @@ while True:
         p.send_signal(SIGINT)
         p.wait(1)
         # TODO:  Check if we need to kill the process as well.
+        # Print some info about our recently stopped process.
+        print(f'Process with:\nId:\t{p.pid:d}\nName:\t{p.args}\nMsg:\t{p.stdout.readline()}\nCode:\t{p.returncode:d}')
+        print('... was just stopped.')
         if code != 0:
             p = Popen(['python3', tree_cmd[code - 1]], stdout=subprocess.PIPE, encoding='utf-8')
     elif code != 0:
         """The process is not currently active (running)."""
         p = Popen(['python3', tree_cmd[code - 1]], stdout=subprocess.PIPE, encoding='utf-8')
+        sleep(0.2)
+        res = p.poll()
+        if res is None:
+            print(f'\'{tree_cmd[code-1]}\' is still running.')
+        elif res != 0:
+            print(f'\'{tree_cmd[code-1]}\' exited with errors.')
+        else:
+            print(f'\'{tree_cmd[code-1]}\' exited with the message, \'{p.stdout.readline()}\'.')
 
     s.close()
 
