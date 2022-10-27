@@ -6,7 +6,7 @@ import sys
 sock.setdefaulttimeout(2)
 
 # Common error messages specific to sockets.
-err_msg_timeout='Connection Error:\tConnection timeout error occurred with server at \'{0}\' listening on port {1:d}.'
+err_msg_timeout = 'Connection Error:\tConnection timeout error occurred with server at \'{0}\' listening on port {1:d}.'
 
 # Create client socket, denoted as 's'.
 s = sock.socket()
@@ -15,20 +15,20 @@ s = sock.socket()
 argv = sys.argv
 
 if '-h' in argv:
-    HOST = argv[argv.index('-h')+1]
+    HOST = argv[argv.index('-h') + 1]
 elif '--host' in argv:
-    HOST = argv[argv.index('--host')+1]
+    HOST = argv[argv.index('--host') + 1]
 else:
     HOST = '127.0.0.1'
 
 if '-p' in argv:
-    PORT = int(argv[argv.index('-p')+1])
+    PORT = int(argv[argv.index('-p') + 1])
 elif '--port' in argv:
-    PORT = int(argv[argv.index('--port')+1])
+    PORT = int(argv[argv.index('--port') + 1])
 else:
     PORT = 9001
 
-ADDR=(HOST, PORT)
+ADDR = (HOST, PORT)
 
 # Obtain the command string from the command line (it must be the last argument).
 cmd = argv[-1]
@@ -40,9 +40,9 @@ except sock.timeout:
     print(err_msg_timeout.format(*ADDR))
     exit(1)
 
-sent=s.send(cmd.encode(encoding='utf-8'))
+sent = s.send(cmd.encode(encoding='utf-8'))
 
-code=0
+code = 0
 if sent != len(cmd):
     print("ERROR:\tThe bytes sent is not equal to the length of the command string.")
     code = 1

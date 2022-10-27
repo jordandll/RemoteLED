@@ -58,6 +58,21 @@ while True:
             pumpkin.sides.left[int(C[2])].toggle()
         else:
             pumpkin.sides.right[int(C[2])].toggle()
+    elif C[0] == 'blink':
+        if len(C) > 1:
+            if isinstance(pumpkin.pin_factory, MockFactory):
+                print("PumpkinPi is blinking...")
+            pumpkin.eyes.blink(n=5, background=False)
+            if isinstance(pumpkin.pin_factory, MockFactory):
+                print("PumpkinPi is done blinking.")
+            continue
+        else:
+            if isinstance(pumpkin.pin_factory, MockFactory):
+                print("PumpkinPi is blinking...")
+            pumpkin.blink(n=5, background=False)
+            if isinstance(pumpkin.pin_factory, MockFactory):
+                print("PumpkinPi is done blinking.")
+            continue
     else:
         pumpkin.eyes.left.toggle() if C[1] == 'left' else pumpkin.eyes.right.toggle()
 
