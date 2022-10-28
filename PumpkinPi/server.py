@@ -1,4 +1,5 @@
 from gpiozero import PumpkinPi
+from gpiozero.pins.mock import MockFactory
 import socket as sock
 
 # Common error messages specific to sockets.
@@ -78,7 +79,7 @@ while True:
 
     """If the pin factory is a MockFactory, which can be achieved through setting the environment variable, 'GPIOZERO_PIN_FACTORY', to 'mock',
      then we must print out the outcome of the command that was just executed during this loop iteration."""
-    from gpiozero.pins.mock import MockFactory
+
     if isinstance(pumpkin.pin_factory, MockFactory):
         print(cmd + " was just toggled.")
 
