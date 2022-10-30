@@ -26,7 +26,7 @@ def send_msg():
         print(args[0] + ' ' + args[1] + ' ' + args[2] + ':\t' + cp.stdout)
 
 
-pir = MotionSensor(pin=7, pull_up=True, queue_len=5)
+pir = MotionSensor(pin=4, pull_up=True, queue_len=5)
 pir.when_activated = send_msg
 
 try:
