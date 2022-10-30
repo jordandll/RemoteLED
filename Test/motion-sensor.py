@@ -10,7 +10,7 @@ def off_msg():
     print('Motion sensor OFF.')
 
 
-pir = MotionSensor(pin=7, pull_up=True, queue_len=5)
+pir = MotionSensor(pin=4, pull_up=True, queue_len=5)
 
 pir.when_activated = on_msg
 pir.when_deactivated = off_msg
@@ -18,4 +18,4 @@ pir.when_deactivated = off_msg
 try:
     pause()
 except KeyboardInterrupt:
-    print('Keyboard interrupt received.  Stopping script.')
+    print('\nKeyboard interrupt received.  Stopping script.')
