@@ -1,6 +1,7 @@
 from gpiozero import PumpkinPi
 from gpiozero.pins.mock import MockFactory
 import socket as sock
+import subprocess as sp
 
 # Common error messages specific to sockets.
 err_msg_timeout = 'Connection Error:\tConnection timeout error occurred with client at \'{0}\' on port {1:d}.'
@@ -74,6 +75,8 @@ while True:
             if isinstance(pumpkin.pin_factory, MockFactory):
                 print("PumpkinPi is done blinking.")
             continue
+    elif C[0] == 'cycle':
+        sp.run(['python3', 'cycle.py'])
     else:
         pumpkin.eyes.left.toggle() if C[1] == 'left' else pumpkin.eyes.right.toggle()
 
