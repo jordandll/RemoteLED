@@ -54,6 +54,8 @@ while True:
 
     # Decode the message to a string, denoted as 'cmd'.
     cmd = msg_r.decode(encoding='utf-8')
+    
+    # Parse and execute the command.
     C = cmd.split('.')
     if C[0] == 'sides':
         if C[1] == 'left':
